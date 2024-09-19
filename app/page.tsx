@@ -16,7 +16,7 @@ import {
 import Profile from "@/components/ui/profile"
 
 const qa = [
-  { q: "Who are you?", a: "Hello! I am a freshman swe student focused in my goals and commited to achieve them." },
+  { q: "Who are you?", a: "Hello! I am Kevin Garcia, sophomore SWE student focused on my goals and commited to achieve them." },
   { q: "What are you doing to achieve your goals?", a: "Well. My career is just starting but I'm aware that big achievements requires big sacrifices, I am constantly challenging myself to learn more, share more and achieve more." },
   { q: "What's next for you?", a: "Land an Internship!" },
   { q: "What's your mindset?", a: "I believe my mindset will take me there! I'm determined to succeed and always looking for new opportunities to grow." },
@@ -150,8 +150,10 @@ export default function Home() {
       </div>
       <div className="flex-grow p-4 overflow-hidden">
         <div className="bg-white rounded-lg shadow-lg border border-gray-200 h-full flex flex-col">
+          <ScrollArea className="flex-grow p-4" ref=
+          
+          {scrollAreaRef}>
           <Profile />
-          <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -162,7 +164,7 @@ export default function Home() {
                 {!message.isUser && (
                   <div className="flex flex-col items-center mr-2">
                     <Image
-                      src="/placeholder.svg?height=40&width=40"
+                      src="/pfp.webp"
                       alt="Kev"
                       width={40}
                       height={40}
@@ -190,7 +192,7 @@ export default function Home() {
                 {message.isUser && (
                   <div className="flex flex-col items-center ml-2">
                     <Image
-                      src="/placeholder.svg?height=40&width=40"
+                      src="/recruiter.webp"
                       alt="Recruiter"
                       width={40}
                       height={40}
@@ -201,6 +203,7 @@ export default function Home() {
                 )}
               </div>
             ))}
+            
           </ScrollArea>
           <div className="p-4 border-t border-gray-200">
             <div className="flex flex-wrap gap-2 mb-2">

@@ -1,8 +1,8 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { FileText, Linkedin, Menu, Play, SkipBack, SkipForward } from "lucide-react"
+import { FileText, Linkedin, Menu, Github } from "lucide-react"
 import Link from "next/link"
 import {
   DropdownMenu,
@@ -11,34 +11,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-interface Project {
-  title: string;
-  description: string;
-  type: 'small' | 'medium' | 'large';
-}
+export default function DashboardLayout() {
+  const [isSpinning, setIsSpinning] = useState(false);
 
-const projects: Project[] = [
-  { title: "PRISM", description: "Unlock 25 million songs with endless possibilities.", type: "large" },
-  { title: "Space Grotesk", description: "Our signature font", type: "small" },
-  { title: "Color Palette", description: "Vibrant and energetic", type: "small" },
-  { title: "Featured Artist", description: "Discover new talent", type: "medium" },
-  { title: "Now Playing", description: "Los Angeles - The Midnight", type: "small" },
-  { title: "25M", description: "Try Prism and unlock 25 million songs with endless possibilities.", type: "medium" },
-]
+  const handleClick = (e: { preventDefault: () => void }) => {
+    if (!isSpinning) {
+      e.preventDefault();
+      setIsSpinning(true);
+      setTimeout(() => {
+        setIsSpinning(false);
+        window.open("https://github.com/kevdev04", "_blank");
+      }, 600);
+    }
+  };
 
-const colors = ["red", "yellow", "green", "blue"];
-
-type ColorCircleProps = {
-  color: string;
-}
-
-const ColorCircle: React.FC<ColorCircleProps> = ({ color }) => (
-  <div className={`w-6 h-6 rounded-full bg-${color}-400`}></div>
-)
-
-export default function Projects() {
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#E8EEF2] text-gray-800 overflow-hidden">
+    <div className="flex flex-col min-h-screen w-full bg-[#0084C7] text-white">
       <header className="bg-[#0084C7] text-white p-4">
         <nav className="flex justify-between items-center">
           <div className="hidden md:flex space-x-4">
@@ -78,66 +66,57 @@ export default function Projects() {
           </div>
         </nav>
       </header>
-      <main className="flex-grow p-4 overflow-auto">
-        <div className="grid grid-cols-3 gap-4 max-w-4xl mx-auto">
-          {projects.map((project, index) => (
-            <div 
-              key={index} 
-              className={`bg-white rounded-lg shadow-lg p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:z-10 ${
-                project.type === 'large' ? 'col-span-2 row-span-2' :
-                project.type === 'medium' ? 'col-span-2' : ''
-              }`}
+      <main className="flex-grow p-4 bg-[#0084C7]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 lg:grid-rows-4 gap-4 h-[calc(100vh-8rem)] relative">
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:row-span-2">
+            <div>Project Content for 1, 4</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:col-span-2 lg:row-span-2">
+            <div>Project Content for 2, 3, 6, 7</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center">
+            <div>Project Content for 5</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:col-start-1 lg:row-start-4">
+            <div>Project Content for 8</div>
+          </div>
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:col-start-1 lg:row-start-3">
+            <div>Project Content for 8</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:row-span-2 lg:col-start-4">
+            <div>Project Content for 9, 13</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:row-span-2">
+            <div>Project Content for 6, 10</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center lg:row-span-2">
+            <div>Project Content for 7, 11</div>
+          </div>
+
+          <div className="bg-[#006699] rounded-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#005580] flex items-center justify-center">
+            <div>Project Content for 12</div>
+          </div>
+
+          <Link 
+            href="https://github.com/kevdev04" 
+            target="_blank"
+            onClick={handleClick}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          >
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="border-14 shadow-none border-customBlue p-4 rounded-full w-32 h-32 bg-white text-[#0084C7] hover:bg-[#f0f0f0] hover:text-[#006699] transition-all duration-300 ease-in-out"
             >
-              {index === 0 && (
-                <>
-                  <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-red-400 via-yellow-400 to-blue-400 text-transparent bg-clip-text">Testing chavales</h2>
-                  <div className="w-32 h-32 bg-gray-200 rounded-lg mb-4"></div>
-                  <p>{project.description}</p>
-                </>
-              )}
-              {index === 1 && (
-                <>
-                  <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
-                  <p className="text-4xl font-bold">Aa Bb Cc</p>
-                </>
-              )}
-              {index === 2 && (
-                <>
-                  <h2 className="text-xl font-bold mb-2">{project.title}</h2>
-                  <div className="flex space-x-2">
-                    {colors.map((color, i) => (
-                      <ColorCircle key={i} color={color} />
-                    ))}
-                  </div>
-                </>
-              )}
-              {index === 3 && (
-                <>
-                  <h2 className="text-xl font-bold mb-2">{project.title}</h2>
-                  <div className="w-full h-40 bg-gray-200 rounded-lg mb-2"></div>
-                  <p>{project.description}</p>
-                </>
-              )}
-              {index === 4 && (
-                <>
-                  <h2 className="text-sm font-bold mb-1">{project.title}</h2>
-                  <p className="text-xs mb-2">{project.description}</p>
-                  <div className="flex justify-between items-center">
-                    <SkipBack className="w-4 h-4" />
-                    <Play className="w-6 h-6" />
-                    <SkipForward className="w-4 h-4" />
-                  </div>
-                </>
-              )}
-              {index === 5 && (
-                <>
-                  <h2 className="text-4xl font-bold mb-2">{project.title}</h2>
-                  <p>{project.description}</p>
-                  <div className="w-16 h-16 bg-gray-200 rounded-full mt-4"></div>
-                </>
-              )}
-            </div>
-          ))}
+              <Github className={`w-16 h-16 ${isSpinning ? 'animate-spin' : ''}`} />
+            </Button>
+          </Link>
         </div>
       </main>
     </div>

@@ -16,12 +16,28 @@ import {
 import Profile from "@/components/ui/profile"
 
 const qa = [
-  { q: "Who are you?", a: "Hello! I am Kevin Garcia, sophomore SWE student focused on my goals and commited to achieve them." },
-  { q: "What are you doing to achieve your goals?", a: "Well. My career is just starting but I'm aware that big achievements requires big sacrifices, I am constantly challenging myself to learn more, share more and achieve more." },
-  { q: "What's next for you?", a: "Land an Internship!" },
-  { q: "What's your mindset?", a: "I believe my mindset will take me there! I'm determined to succeed and always looking for new opportunities to grow." },
-  { q: "Tell me about your journey.", a: "My journey is just beginning. As a freshman, I'm excited to explore the world of software engineering, tackle challenging projects, and build a strong foundation for my future career." },
-]
+  {
+    q: "Tell me about your background in software.",
+    a: "I am Kevin Garcia, a sophomore Software Engineer student who's passionate about technology. I started coding in high school with HTML and CSS, and now I'm exploring more complex languages like TypeScript, C++ and Dart. I've built a few web applications and I'm currently working on a mobile app for my university's project fair."
+  },
+  {
+    q: "What specific technologies or frameworks are you most excited about right now?",
+    a: "I'm really excited about React and Next.js. I've been using them to build web applications and I love how they make front-end development more efficient. I'm also intrigued by machine learning – I've just started a course on Coursera about the basics of AI and I'm eager to apply what I'm learning to real-world problems."
+  },
+  {
+    q: "How do you approach learning new technologies or solving complex problems?",
+    a: "When learning something new, I usually start with online tutorials and documentation. Then I try to build small projects to apply what I've learned. For complex problems, I break them down into smaller, manageable parts. Recently, I worked on a group project where we had to create a database system for a school project. We divided the work based on our strengths and used GitHub for collaboration, which was a great learning experience."
+  },
+  {
+    q: "Can you tell me about a significant project or contribution you've made?",
+    a: "My most significant project so far has been developing a study group finder app for my fellow students. It allows users to create or join study groups based on courses and schedules. While it's not perfect, it's been exciting to see other students actually use something I've built. I've learned a lot about user experience design and database management through this project."
+  },
+  {
+    q: "What are your career aspirations in the field of software engineering?",
+    a: "I'm really interested in becoming a full-stack developer. I love the idea of being able to work on both the front-end and back-end of applications. In the short term, I'm hoping to land an internship where I can gain real-world experience and learn from professionals in the field. Long-term, I'd love to work on projects that have a positive impact on society, maybe in areas like education powered by AI, AR and VR."
+  },
+  
+];
 
 type Message = {
   text: string
@@ -72,7 +88,7 @@ export default function Home() {
       setInputValue("")
       setIsTyping(true)
       setTimeout(() => {
-        const answer = qa.find((item) => item.q.toLowerCase() === inputValue.toLowerCase())?.a || "I'm still learning about that aspect of my journey. Is there anything else you'd like to know?"
+        const answer = qa.find((item) => item.q.toLowerCase() === inputValue.toLowerCase())?.a || "I am currently learning how to implement machine learning models to answer custom questions based on my data. Sorry for the inconvenience."
         addMessage(answer, false)
       }, 500)
     }
@@ -82,7 +98,7 @@ export default function Home() {
     addMessage(question, true)
     setIsTyping(true)
     setTimeout(() => {
-      const answer = qa.find((item) => item.q === question)?.a || "I'm still learning about that aspect of my journey. Is there anything else you'd like to know?"
+      const answer = qa.find((item) => item.q === question)?.a || "I am currently learning how to implement machine learning models to answer custom questions based on my data. Sorry for the inconvenience."
       addMessage(answer, false)
     }, 500)
   }
@@ -132,6 +148,7 @@ export default function Home() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          <Profile />
           <div className="flex space-x-2">
           <Link href="google.com">
             <Button variant="secondary" size="sm" className="bg-white text-[#0084C7]">
@@ -149,11 +166,10 @@ export default function Home() {
         </nav>
       </div>
       <div className="flex-grow p-4 overflow-hidden">
-        <div className="bg-white rounded-lg shadow-lg border border-gray-200 h-full flex flex-col">
+        <div className="bg-white rounded-lg shadow-lg border border-gray-300 h-full flex flex-col">
           <ScrollArea className="flex-grow p-4" ref=
           
           {scrollAreaRef}>
-          <Profile />
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -213,7 +229,7 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleSuggestedQuestion(item.q)}
-                  className="text-xs"
+                  className="text-xs bg-gray-100"
                 >
                   {item.q}
                 </Button>

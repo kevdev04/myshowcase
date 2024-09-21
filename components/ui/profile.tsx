@@ -1,26 +1,24 @@
-import { Badge } from "@/components/ui/badge"
 
-export default function Component() {
+export default function Profile() {
   return (
-    <div className="flex flex-col items-center space-y-1 pb-2 mb-4">
-      <div className="relative w-16 h-16 mt-2">
+    <div className="flex items-center space-x-2">
+      <div className="relative w-8 h-8">
         <img
-          src="https://media.licdn.com/dms/image/v2/D5603AQG6o3BmnuZVVA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1724384039724?e=1732147200&v=beta&t=zh1sa6QOryf9WaBBxlslnnR_Qcu7XJCK8IoFB1X30zU"
+          src="/pfp.webp"
           alt="Profile"
           className="rounded-full"
-          width="64"
-          height="64"
+          width="32"
+          height="32"
           style={{ aspectRatio: "1/1", objectFit: "cover" }}
         />
+        <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-[1.5px] border-white"></div>
       </div>
-      <h1 className="text-lg font-bold">Kevin Garcia Cristobal</h1>
-      <p className="text-muted-foreground text-sm">Sophomore Software Engineer</p>
-      <div className="flex flex-wrap justify-center gap-1">
-        <Badge variant="secondary" className="text-xs">FrontEnd</Badge>
-        <Badge variant="secondary" className="text-xs">Mobile Dev</Badge>
-        <Badge variant="secondary" className="text-xs">UI/UX</Badge>
-        <Badge variant="secondary" className="text-xs">Design System</Badge>
-        <Badge variant="secondary" className="text-xs">BackEnd</Badge>
+      <div className="flex flex-col">
+        <div className="flex items-center space-x-1">
+          <h1 className="text-xs font-semibold">Kevin Garcia Cristobal</h1>
+          
+        </div>
+        <p className="text-[10px] text-muted-foreground text-white">Sophomore Software Engineer Student</p>
       </div>
     </div>
   )

@@ -36,8 +36,7 @@ const qa = [
     q: "What are your career aspirations in the field of software engineering?",
     a: "I'm really interested in becoming a full-stack developer. I love the idea of being able to work on both the front-end and back-end of applications. In the short term, I'm hoping to land an internship where I can gain real-world experience and learn from professionals in the field. Long-term, I'd love to work on projects that have a positive impact on society, maybe in areas like education powered by AI, AR and VR."
   },
-  
-];
+]
 
 type Message = {
   text: string
@@ -64,7 +63,7 @@ const TypeWriter = ({ text, onComplete }: { text: string; onComplete: () => void
   return <span>{displayText}</span>
 }
 
-export default function Home() {
+export default function Component() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -112,9 +111,9 @@ export default function Home() {
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
+      const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement
       if (scrollElement) {
-        scrollElement.scrollTop = scrollElement.scrollHeight;
+        scrollElement.scrollTop = scrollElement.scrollHeight
       }
     }
   }, [messages])
@@ -150,26 +149,24 @@ export default function Home() {
           </div>
           <Profile />
           <div className="flex space-x-2">
-          <Link href="google.com">
-            <Button variant="secondary" size="sm" className="bg-white text-[#0084C7]">
-              <FileText className="w-4 h-4 mr-2" />
-              Resume
-            </Button>
+            <Link href="google.com">
+              <Button variant="secondary" size="sm" className="bg-white text-[#0084C7]">
+                <FileText className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Resume</span>
+              </Button>
             </Link>
             <Link href="https://www.linkedin.com/in/kevingael/" target="blank">
-            <Button variant="secondary" size="sm" className="bg-white text-[#0084C7]">
-              <Linkedin className="w-4 h-4 mr-2" />
-              LinkedIn
-            </Button>
+              <Button variant="secondary" size="sm" className="bg-white text-[#0084C7]">
+                <Linkedin className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">LinkedIn</span>
+              </Button>
             </Link>
           </div>
         </nav>
       </div>
       <div className="flex-grow p-4 overflow-hidden">
         <div className="bg-white rounded-lg shadow-lg border border-gray-300 h-full flex flex-col">
-          <ScrollArea className="flex-grow p-4" ref=
-          
-          {scrollAreaRef}>
+          <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -219,22 +216,23 @@ export default function Home() {
                 )}
               </div>
             ))}
-            
           </ScrollArea>
           <div className="p-4 border-t border-gray-200">
-            <div className="flex flex-wrap gap-2 mb-2">
-              {qa.map((item, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleSuggestedQuestion(item.q)}
-                  className="text-xs bg-gray-100"
-                >
-                  {item.q}
-                </Button>
-              ))}
-            </div>
+            <ScrollArea className="h-24 mb-2">
+              <div className="flex flex-wrap gap-2">
+                {qa.map((item, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleSuggestedQuestion(item.q)}
+                    className="text-xs bg-gray-100 md:py-2 md:px-4 py-1 px-2 h-auto whitespace-normal text-left justify-start md:h-9"
+                  >
+                    {item.q}
+                  </Button>
+                ))}
+              </div>
+            </ScrollArea>
             <div className="flex space-x-2">
               <Input
                 type="text"

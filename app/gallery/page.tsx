@@ -83,10 +83,21 @@ const ImageGallery = () => {
   };
 
   const handleUploadClick = () => {
-    if (!isAuthenticated) {
-      setIsAuthDialogOpen(true);
+    if (isOpen) {
+      setIsOpen(false);
+      setTimeout(() => {
+        if (!isAuthenticated) {
+          setIsAuthDialogOpen(true);
+        } else {
+          fileInputRef.current?.click();
+        }
+      }, 100);
     } else {
-      fileInputRef.current?.click();
+      if (!isAuthenticated) {
+        setIsAuthDialogOpen(true);
+      } else {
+        fileInputRef.current?.click();
+      }
     }
   };
 
@@ -140,7 +151,6 @@ const ImageGallery = () => {
     }
   };
 
-  // Create columns with proper distribution
   const columns = photos.reduce<Photo[][]>(
     (acc, photo, index) => {
       acc[index % 2].push(photo);
@@ -153,7 +163,7 @@ const ImageGallery = () => {
     <div className="min-h-screen bg-black">
       <header className="p-4 text-white fixed w-full z-10 bg-black/80 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Kev Gallery</h1>
+          <h1 className="text-2xl font-bold">Kev & friends</h1>
           <button
             onClick={handleUploadClick}
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
@@ -199,30 +209,40 @@ const ImageGallery = () => {
           </div>
         )}
 
+        {/* Updated Auth Dialog with close button */}
         <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
-          <DialogContent className="bg-white rounded-lg p-6 max-w-sm mx-auto">
-            <DialogTitle className="text-xl font-bold mb-4">Solo amigos pueden subir una foto</DialogTitle>
-            <form onSubmit={handleAuthSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  {SECURITY_QUESTION}
-                </label>
-                <input
-                  type="password"
-                  value={securityAnswer}
-                  onChange={(e) => setSecurityAnswer(e.target.value)}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+          <DialogContent className="fixed inset-0 flex items-center justify-center bg-black/50">
+            <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4 shadow-xl relative">
               <button
-                type="submit"
-                className="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+                onClick={() => setIsAuthDialogOpen(false)}
+                className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Close dialog"
               >
-                Subir foto
+                <X size={20} />
               </button>
-            </form>
+              <DialogTitle className="text-xl font-bold mb-4 pr-8">Solo amigos pueden subir una foto</DialogTitle>
+              <form onSubmit={handleAuthSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {SECURITY_QUESTION}
+                  </label>
+                  <input
+                    type="password"
+                    value={securityAnswer}
+                    onChange={(e) => setSecurityAnswer(e.target.value)}
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+                <button
+                  type="submit"
+                  className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors"
+                >
+                  Subir foto
+                </button>
+              </form>
+            </div>
           </DialogContent>
         </Dialog>
 
@@ -236,18 +256,18 @@ const ImageGallery = () => {
           id="image-upload"
         />
 
+        {/* Updated Image Preview Dialog */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="max-w-[95vw] max-h-[95vh] p-0">
+          <DialogContent className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-0">
             {selectedPhoto && (
-              <div className="relative bg-black">
-                <div className="relative w-full h-[90vh]">
-                  <Image
-                    src={selectedPhoto.src}
-                    alt={selectedPhoto.alt || 'Selected image'}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+              <div className="relative max-w-5xl max-h-[90vh] w-auto">
+                <Image
+                  src={selectedPhoto.src}
+                  alt={selectedPhoto.alt || 'Selected image'}
+                  width={1200}
+                  height={1600}
+                  className="max-h-[90vh] w-auto object-contain"
+                />
                 <button
                   onClick={() => setIsOpen(false)}
                   className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
@@ -265,5 +285,3 @@ const ImageGallery = () => {
 };
 
 export default ImageGallery;
-
-//testing deployment

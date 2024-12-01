@@ -163,7 +163,7 @@ const ImageGallery = () => {
     <div className="min-h-screen bg-black">
       <header className="p-4 text-white fixed w-full z-10 bg-black/80 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Kev Gallery</h1>
+          <h1 className="text-2xl font-bold">VSKEV</h1>
           <button
             onClick={handleUploadClick}
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
